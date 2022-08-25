@@ -14,6 +14,7 @@ const SignIn = () => {
   const PwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/
 
   const [user, setUser] = useState({
+    username: '',
     email: '',
     password: '',
   })
@@ -22,6 +23,14 @@ const SignIn = () => {
     EmailError: '',
     PassError: '',
   })
+
+  const handleUsernameInputChange = (event) => {
+    event.persist()
+    setUser((user) => ({
+      ...user,
+      username: event.target.value,
+    }))
+  }
   const handleEmailInputChange = (event) => {
     event.persist()
     setUser((user) => ({
@@ -74,7 +83,8 @@ const SignIn = () => {
       if (user.email && user.password) {
         // setValid(true)
         //setSubmitted(true)
-        navigate('/Main')
+        navigate('/Main', { state: user })
+        //console.log(state)
       }
     }
     setSubmitted(true)
@@ -91,7 +101,14 @@ const SignIn = () => {
     console.log(submitted)
     console.log(valid)*/
   }
-
+  const reset = (event) => {
+    event.persist()
+    setUser((user) => ({
+      ...user,
+      email: '',
+      password: '',
+    }))
+  }
   return (
     <>
       <Header />
@@ -108,6 +125,14 @@ const SignIn = () => {
         <form id='myform' onSubmit={handleSubmit}>
           <Stack spacing={2}>
             <h2 className='center'>Sign In</h2>
+            <TextField
+              id='filled-basic'
+              label='Username'
+              variant='filled'
+              type='text'
+              value={user.username}
+              onChange={handleUsernameInputChange}
+            />
             <TextField
               id='filled-basic'
               label='Email'
@@ -132,7 +157,12 @@ const SignIn = () => {
               <Button variant='contained' color='success' type='submit'>
                 Sign In
               </Button>
-              <Button variant='contained' color='error' type='button'>
+              <Button
+                variant='contained'
+                color='error'
+                type='button'
+                onClick={reset}
+              >
                 Cancel
               </Button>
             </Stack>
