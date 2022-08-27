@@ -17,6 +17,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 
 const AddNew = () => {
   const navigate = useNavigate()
+
   const dict = {
     veg: {
       Indian: ['Puran poli', ' puri bhaji', 'pav bhaji'],
@@ -42,7 +43,12 @@ const AddNew = () => {
       ],
     },
 
-    None: { None: [] },
+    None: {
+      None: ['None'],
+      Indian: ['None'],
+      Chinese: [' None'],
+      Italian: ['None'],
+    },
   }
 
   const [details, setDetails] = useState({
@@ -53,24 +59,23 @@ const AddNew = () => {
     menu: '',
   })
 
-  const [checked, setChecked] = useState({
-    veg: false,
-    nonveg: false,
-  })
+  const [vchecked, setVChecked] = useState(false)
+  const [nvchecked, setNVChecked] = useState(false)
+  const checkboxHandle1 = (event) => {
+    setVChecked(!vchecked)
 
-  const checkboxHandle = (event) => {
-    setChecked({ ...checked, [event.target.name]: event.target.checked })
-    if (checked.veg) {
-      setDetails((details) => ({
-        ...details,
-        category: 'nonveg',
-      }))
-    } else {
-      setDetails((details) => ({
-        ...details,
-        category: 'veg',
-      }))
-    }
+    setDetails((details) => ({
+      ...details,
+      category: 'veg',
+    }))
+  }
+  const checkboxHandle2 = (event) => {
+    setNVChecked(!nvchecked)
+
+    setDetails((details) => ({
+      ...details,
+      category: 'nonveg',
+    }))
   }
   const handleInputChange = (event) => {
     event.preventDefault()
@@ -91,10 +96,14 @@ const AddNew = () => {
 
   const submitHandler = (event) => {
     event.preventDefault()
-    //navigate('/Main', { state2: details })
+    setNVChecked(false)
+    setVChecked(false)
+
     console.log(details)
-    console.log(checked)
+
+    navigate('/Main', { state2: details })
   }
+  console.log(details)
 
   return (
     <Box
@@ -148,7 +157,7 @@ const AddNew = () => {
                 label='Cuisine *'
                 onChange={selectionHandler}
               >
-                <MenuItem value=''>
+                <MenuItem value='None'>
                   <em>None</em>
                 </MenuItem>
                 <MenuItem value={'Indian'}>Indian</MenuItem>
@@ -163,9 +172,7 @@ const AddNew = () => {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={checked.veg}
-                      name='veg'
-                      onChange={checkboxHandle}
+                      onChange={checkboxHandle1}
                       disabled={!details.cuisine}
                     />
                   }
@@ -174,9 +181,7 @@ const AddNew = () => {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={checked.nonveg}
-                      name='nonveg'
-                      onChange={checkboxHandle}
+                      onChange={checkboxHandle2}
                       disabled={!details.cuisine}
                     />
                   }
@@ -187,7 +192,7 @@ const AddNew = () => {
 
             <FormControl
               sx={{ m: 1, minWidth: 120 }}
-              disabled={!checked.veg && !checked.nonveg}
+              disabled={!vchecked && !nvchecked}
             >
               <InputLabel id='demo-simple-select-required-label'>
                 Menu
@@ -197,12 +202,14 @@ const AddNew = () => {
                 id='demo-simple-select-required'
                 value={details.menu}
                 label='Menu *'
+                name='menu'
+                onChange={handleInputChange}
               >
                 {dict[details.category][details.cuisine].map(
                   (option, index) => (
-                    <option key={index} value={option}>
+                    <MenuItem key={index} value={option}>
                       {option}
-                    </option>
+                    </MenuItem>
                   )
                 )}
               </Select>
