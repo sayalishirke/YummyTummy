@@ -113,6 +113,15 @@ const SignUp = (props) => {
     console.log(submitted)
     console.log(valid)*/
   }
+  const reset = (event) => {
+    event.persist()
+    setNUser((Nuser) => ({
+      ...Nuser,
+      email: '',
+      password: '',
+      cp: '',
+    }))
+  }
 
   return (
     <>
@@ -169,6 +178,14 @@ const SignUp = (props) => {
                 // disabled={!validateForm()}
               >
                 Sign Up
+              </Button>
+              <Button
+                variant='contained'
+                color='error'
+                type='button'
+                onClick={reset}
+              >
+                Cancel
               </Button>
             </Stack>
           </Stack>
