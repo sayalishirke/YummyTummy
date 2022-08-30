@@ -9,19 +9,22 @@ import InputLabel from '@mui/material/InputLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import FormHelperText from '@mui/material/FormHelperText'
 import MenuItem from '@mui/material/MenuItem'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from '@mui/material/Button'
 import { FormGroup } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Autocomplete from '@mui/material/Autocomplete'
+import Header from './Header'
+import { v4 as uuid } from 'uuid'
+import Main from './Main'
 
-const AddNew = () => {
+const AddNew = (props) => {
   const navigate = useNavigate()
 
   const dict = {
     veg: {
-      Indian: ['Puran poli', ' puri bhaji', 'pav bhaji'],
-      Chinese: ['Veg Machurian', 'Honey chilli potatos', 'Veg spring rolls'],
+      Indian: ['Puran Poli', ' Puri Bhaji', 'Pav Bhaji'],
+      Chinese: ['Veg Machurian', 'Honey Chilli Potatos', 'Veg Spring Rolls'],
       Italian: [
         'Four-Cheese Stuffed Shells',
         'White Bean Soup',
@@ -30,7 +33,7 @@ const AddNew = () => {
     },
 
     nonveg: {
-      Indian: ['chicken kolhapuri', 'mutton handi', 'fish fry'],
+      Indian: ['Chicken Kolhapuri', 'Mutton Handi', 'Fish Fry'],
       Chinese: [
         ' Chicken Manchow Soup',
         'Chicken Lollipops',
@@ -46,12 +49,13 @@ const AddNew = () => {
     None: {
       None: ['None'],
       Indian: ['None'],
-      Chinese: [' None'],
+      Chinese: ['None'],
       Italian: ['None'],
     },
   }
 
   const [details, setDetails] = useState({
+    id: uuid(),
     name: '',
     contact: '',
     cuisine: 'None',
@@ -69,6 +73,7 @@ const AddNew = () => {
       category: 'veg',
     }))
   }
+
   const checkboxHandle2 = (event) => {
     setNVChecked(!nvchecked)
 
@@ -100,24 +105,37 @@ const AddNew = () => {
     setVChecked(false)
 
     console.log(details)
-
-    navigate('/Main', { state2: details })
+    {
+      /*
+      props.newitem = { details }
+  */
+    }
+    navigate('/Main')
+    //navigate('/Main', { item: { details } })
   }
-  console.log(details)
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexWrap: 'wrap',
-        '& > :not(style)': {
-          m: 1,
-          width: 500,
-          height: 1000,
-        },
-      }}
-    >
-      <Paper elevation={8}>
+    <>
+      <img
+        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgdFKAx5fhuJHLX7trX2q5nst3pmTiJIrqfw&usqp=CAU'
+        alt='logo'
+        width='150'
+        height='150'
+        className='center'
+      />
+
+      <Box
+        className='center'
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          '& > :not(style)': {
+            m: 1,
+            width: 500,
+            height: 1000,
+          },
+        }}
+      >
         <form onSubmit={submitHandler}>
           <Stack
             direction='column'
@@ -157,9 +175,6 @@ const AddNew = () => {
                 label='Cuisine *'
                 onChange={selectionHandler}
               >
-                <MenuItem value='None'>
-                  <em>None</em>
-                </MenuItem>
                 <MenuItem value={'Indian'}>Indian</MenuItem>
                 <MenuItem value={'Chinese'}>Chinese</MenuItem>
                 <MenuItem value={'Italian'}>Italian</MenuItem>
@@ -221,8 +236,8 @@ const AddNew = () => {
             </Button>
           </Stack>
         </form>
-      </Paper>
-    </Box>
+      </Box>
+    </>
   )
 }
 

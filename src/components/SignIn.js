@@ -25,14 +25,12 @@ const SignIn = () => {
   })
 
   const handleUsernameInputChange = (event) => {
-    event.persist()
     setUser((user) => ({
       ...user,
       username: event.target.value,
     }))
   }
   const handleEmailInputChange = (event) => {
-    event.persist()
     setUser((user) => ({
       ...user,
       email: event.target.value,
@@ -52,7 +50,6 @@ const SignIn = () => {
   }
 
   const handlePasswordInputChange = (event) => {
-    event.persist()
     setUser((user) => ({
       ...user,
       password: event.target.value,
@@ -111,7 +108,14 @@ const SignIn = () => {
   }
   return (
     <>
-      <Header />
+      <img
+        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgdFKAx5fhuJHLX7trX2q5nst3pmTiJIrqfw&usqp=CAU'
+        alt='logo'
+        width='150'
+        height='150'
+        className='center'
+      />
+
       <Box
         className='center'
         sx={{

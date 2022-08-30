@@ -30,7 +30,7 @@ const SignUp = (props) => {
       ...Nuser,
       email: event.target.value,
     }))
-    if (EmailRegex.test(Nuser.email) === false || Nuser.email === '') {
+    if (EmailRegex.test(event.target.value) === false || Nuser.email === '') {
       setError((error) => ({
         ...error,
         EmailError: 'Please enter valid email adress',
@@ -70,15 +70,15 @@ const SignUp = (props) => {
       ...Nuser,
       cp: event.target.value,
     }))
-    if (Nuser.password !== Nuser.cp) {
+    if (Nuser.password === Nuser.cp) {
       setError((error) => ({
         ...error,
-        CPError: 'Password and Confirm password must be same',
+        CPError: '',
       }))
     } else {
       setError((error) => ({
         ...error,
-        CPError: '',
+        CPError: 'Password and Confirm password must be same',
       }))
       return true
     }
@@ -125,7 +125,13 @@ const SignUp = (props) => {
 
   return (
     <>
-      <Header />
+      <img
+        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgdFKAx5fhuJHLX7trX2q5nst3pmTiJIrqfw&usqp=CAU'
+        alt='logo'
+        width='150'
+        height='150'
+        className='center'
+      />
       <Box
         className='center'
         sx={{

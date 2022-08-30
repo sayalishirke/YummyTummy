@@ -10,36 +10,97 @@ import ImageListItemBar from '@mui/material/ImageListItemBar'
 import ListSubheader from '@mui/material/ListSubheader'
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/Info'
-
+import Stack from '@mui/material/Stack'
+import { useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import AddNew from './AddNew'
 const Main = () => {
+  const navigate = useNavigate()
+  // const location = useLocation()
+  //const LOCAL_STORAGE_KEY = 'Itemarray'
+  {
+    /*const renderList = props.contacts.map((contact) => {
   return (
-    <ImageList sx={{ width: 500, height: 450 }} gap={5}>
-      <ImageListItem key='Subheader' cols={2}></ImageListItem>
-      {itemData.map((item) => (
-        <ImageListItem key={item.img}>
-          <img
-            src={`${item.img}?w=248&fit=crop&auto=format`}
-            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={item.title}
-            loading='lazy'
-          />
-          <ImageListItemBar
-            title={item.title}
-            subtitle={item.author}
-            actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`info about ${item.title}`}
-              >
-                <Link to='https://food.ndtv.com/food-drinks/healthy-breakfast-recipes-7-desi-oats-recipes-that-are-a-must-add-to-your-menu-3275464'>
-                  <InfoIcon />
-                </Link>
-              </IconButton>
-            }
-          />
-        </ImageListItem>
-      ))}
-    </ImageList>
+    <ContactCard
+      contact={contact}
+      clickHander={deleteConactHandler}
+      key={contact.id}
+    />
+  )
+})
+
+  const [items, setItems] = useState([])
+
+  const addItem = (item) => {
+    setItems([...items, { ...item }])
+  }
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(items))
+  }, [items])
+
+  //[] ->to run only for first render*/
+  }
+
+  return (
+    <>
+      <img
+        src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgdFKAx5fhuJHLX7trX2q5nst3pmTiJIrqfw&usqp=CAU'
+        alt='logo'
+        width='150'
+        height='150'
+        className='center'
+      />
+      {/*<h2>Welcome {location.item.name}</h2>*/}
+
+      <ImageList sx={{ width: 500, height: 450 }} gap={5}>
+        <ImageListItem key='Subheader' cols={2}></ImageListItem>
+        {itemData.map((item) => (
+          <ImageListItem key={item.img}>
+            <img
+              src={`${item.img}?w=248&fit=crop&auto=format`}
+              srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+              alt={item.title}
+              loading='lazy'
+            />
+            <ImageListItemBar
+              title={item.title}
+              subtitle={item.author}
+              actionIcon={
+                <IconButton
+                  sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                  aria-label={`info about ${item.title}`}
+                >
+                  <Link to='https://food.ndtv.com/food-drinks/healthy-breakfast-recipes-7-desi-oats-recipes-that-are-a-must-add-to-your-menu-3275464'>
+                    <InfoIcon />
+                  </Link>
+                </IconButton>
+              }
+            />
+          </ImageListItem>
+        ))}
+      </ImageList>
+      <Stack direction='row' className='center' spacing={2}>
+        <Button
+          variant='contained'
+          color='success'
+          type='button'
+          onClick={() => {
+            navigate('/Main/AddNew')
+          }}
+        >
+          Add
+        </Button>
+        <Button
+          onClick={() => navigate('/')}
+          type='button'
+          variant='contained'
+          color='error'
+        >
+          Log Out
+        </Button>
+      </Stack>
+    </>
   )
 }
 
@@ -51,69 +112,6 @@ const itemData = [
     rows: 2,
     cols: 2,
     featured: true,
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    title: 'Burger',
-    author: '@rollelflex_graphy726',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-    title: 'Camera',
-    author: '@helloimnik',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-    title: 'Coffee',
-    author: '@nolanissac',
-    cols: 2,
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-    title: 'Hats',
-    author: '@hjrc33',
-    cols: 2,
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-    title: 'Honey',
-    author: '@arwinneil',
-    rows: 2,
-    cols: 2,
-    featured: true,
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-    title: 'Basketball',
-    author: '@tjdragotta',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-    title: 'Fern',
-    author: '@katie_wasserman',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-    title: 'Mushrooms',
-    author: '@silverdalex',
-    rows: 2,
-    cols: 2,
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-    title: 'Tomato basil',
-    author: '@shelleypauls',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-    title: 'Sea star',
-    author: '@peterlaster',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-    title: 'Bike',
-    author: '@southside_customs',
-    cols: 2,
   },
 ]
 
