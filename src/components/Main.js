@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import ImageList from '@mui/material/ImageList'
 import ImageListItem from '@mui/material/ImageListItem'
 import './App.css'
-import Header from './Header.js'
+import Header from './Header'
 import { Link } from 'react-router-dom'
 import ImageListItemBar from '@mui/material/ImageListItemBar'
 import ListSubheader from '@mui/material/ListSubheader'
@@ -15,8 +15,29 @@ import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import AddNew from './AddNew'
+import MyContext from './UserContext'
+import Axios from 'axios'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
+//import * as fs from 'fs'
 const Main = () => {
   const navigate = useNavigate()
+  const [product, setProduct] = useState([])
+  const [fetch, setFetch] = useState(false)
+  const [clicked, setClicked] = useState(false)
+  const fetchList = () => {
+    Axios.get('http://localhost:3004/details').then((res) => {
+      setProduct(res.data)
+    })
+    setFetch(true)
+    // console.log(product)
+  }
+
+  const clickHandle = () => {
+    setClicked(true)
+  }
   // const location = useLocation()
   //const LOCAL_STORAGE_KEY = 'Itemarray'
   {
@@ -41,7 +62,19 @@ const Main = () => {
 
   //[] ->to run only for first render*/
   }
-
+  {
+    /*const fs = require('fs')
+  fs.readFile('./details.json', 'utf8', (err, jsonString) => {
+    if (err) {
+      return
+    }
+    try {
+      const customer = JSON.parse(jsonString)
+    } catch (err) {
+      console.log('Error parsing JSON string:', err)
+    }
+  })*/
+  }
   return (
     <>
       <img
@@ -51,35 +84,25 @@ const Main = () => {
         height='150'
         className='center'
       />
+
       {/*<h2>Welcome {location.item.name}</h2>*/}
 
-      <ImageList sx={{ width: 500, height: 450 }} gap={5}>
-        <ImageListItem key='Subheader' cols={2}></ImageListItem>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img}>
-            <img
-              src={`${item.img}?w=248&fit=crop&auto=format`}
-              srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
-              loading='lazy'
-            />
-            <ImageListItemBar
-              title={item.title}
-              subtitle={item.author}
-              actionIcon={
-                <IconButton
-                  sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                  aria-label={`info about ${item.title}`}
-                >
-                  <Link to='https://food.ndtv.com/food-drinks/healthy-breakfast-recipes-7-desi-oats-recipes-that-are-a-must-add-to-your-menu-3275464'>
-                    <InfoIcon />
-                  </Link>
-                </IconButton>
-              }
-            />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      <Button onClick={fetchList}>Display List</Button>
+      <List>
+        {fetch ? (
+          product.map((option, index) => (
+            <ListItem key={option.id} value={option.name}>
+              {option.name}
+              <Button onClick={clickHandle}>
+                <InfoIcon />
+              </Button>
+              {clicked && <div>{option.contact}</div>}
+            </ListItem>
+          ))
+        ) : (
+          <>list not found</>
+        )}
+      </List>
       <Stack direction='row' className='center' spacing={2}>
         <Button
           variant='contained'

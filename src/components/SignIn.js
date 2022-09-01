@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, createContext, useContext } from 'react'
 import './App.css'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -6,14 +6,19 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 //import SignUp from './SignUp'
 import { useNavigate } from 'react-router-dom'
-import Header from './Header'
+import { v4 as uuid } from 'uuid'
+import MyContext from './UserContext'
+import Header from './Header.js'
+import Axios from 'axios'
 
 const SignIn = () => {
   const navigate = useNavigate()
+  const LOCAL_STORAGE_KEY = 'Users'
   const EmailRegex = /^[a-zA-Z0-9]+@[a-zA-Z]+[.a-zA-Z]+$/
   const PwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/
-
+  const [users, setUsers] = useState([])
   const [user, setUser] = useState({
+    id: uuid(),
     username: '',
     email: '',
     password: '',
@@ -24,6 +29,9 @@ const SignIn = () => {
     PassError: '',
   })
 
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(users))
+  }, [users])
   const handleUsernameInputChange = (event) => {
     setUser((user) => ({
       ...user,
@@ -80,8 +88,19 @@ const SignIn = () => {
       if (user.email && user.password) {
         // setValid(true)
         //setSubmitted(true)
-        navigate('/Main', { state: user })
+
+        Axios.post('http://localhost:3004/users', {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          password: user.password,
+        }).then((res) => {
+          console.log(res.data)
+        })
+
+        navigate('/Main')
         //console.log(state)
+        //setUsers([...users, { id: uuid(), ...user }])
       }
     }
     setSubmitted(true)
@@ -115,7 +134,9 @@ const SignIn = () => {
         height='150'
         className='center'
       />
-
+      <MyContext.Provider value={{ user }}>
+        <Header />
+      </MyContext.Provider>
       <Box
         className='center'
         sx={{
@@ -161,6 +182,7 @@ const SignIn = () => {
               <Button variant='contained' color='success' type='submit'>
                 Sign In
               </Button>
+
               <Button
                 variant='contained'
                 color='error'

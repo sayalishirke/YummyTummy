@@ -17,6 +17,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import Header from './Header'
 import { v4 as uuid } from 'uuid'
 import Main from './Main'
+import Axios from 'axios'
 
 const AddNew = (props) => {
   const navigate = useNavigate()
@@ -62,7 +63,7 @@ const AddNew = (props) => {
     category: 'None',
     menu: '',
   })
-
+  
   const [vchecked, setVChecked] = useState(false)
   const [nvchecked, setNVChecked] = useState(false)
   const checkboxHandle1 = (event) => {
@@ -110,6 +111,18 @@ const AddNew = (props) => {
       props.newitem = { details }
   */
     }
+
+    Axios.post('http://localhost:3004/details', {
+      id: details.id,
+      name: details.name,
+      contact: details.contact,
+      cuisine: details.cuisine,
+      category: details.category,
+      menu: details.menu,
+    }).then((res) => {
+      console.log(res.data)
+    })
+
     navigate('/Main')
     //navigate('/Main', { item: { details } })
   }

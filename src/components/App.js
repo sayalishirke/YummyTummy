@@ -1,4 +1,5 @@
 import './App.css'
+import MyContext from './UserContext'
 import Header from './Header.js'
 import SignIn from './SignIn.js'
 import SignUp from './SignUp.js'
