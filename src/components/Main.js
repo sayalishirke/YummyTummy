@@ -1,13 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
-import ImageList from '@mui/material/ImageList'
-import ImageListItem from '@mui/material/ImageListItem'
+
 import './App.css'
-import Header from './Header'
+
 import { Link } from 'react-router-dom'
-import ImageListItemBar from '@mui/material/ImageListItemBar'
-import ListSubheader from '@mui/material/ListSubheader'
+
 import IconButton from '@mui/material/IconButton'
 import InfoIcon from '@mui/icons-material/Info'
 import Stack from '@mui/material/Stack'
@@ -27,6 +25,8 @@ const Main = () => {
   const [product, setProduct] = useState([])
   const [fetch, setFetch] = useState(false)
   const [clicked, setClicked] = useState(false)
+
+  //const { user } = useContext(MyContext)
   const fetchList = () => {
     Axios.get('http://localhost:3004/details').then((res) => {
       setProduct(res.data)
@@ -85,7 +85,8 @@ const Main = () => {
         className='center'
       />
 
-      {/*<h2>Welcome {location.item.name}</h2>*/}
+      {/*<h2>Welcome {location.item.name}</h2>
+      <h2>welcome, {user.username}</h2>*/}
 
       <Button onClick={fetchList}>Display List</Button>
       <List>
@@ -126,16 +127,5 @@ const Main = () => {
     </>
   )
 }
-
-const itemData = [
-  {
-    img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-    title: 'Breakfast',
-    author: '@bkristastucchio',
-    rows: 2,
-    cols: 2,
-    featured: true,
-  },
-]
 
 export default Main

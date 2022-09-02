@@ -10,8 +10,9 @@ import { v4 as uuid } from 'uuid'
 import MyContext from './UserContext'
 import Header from './Header.js'
 import Axios from 'axios'
+import Main from './Main.js'
 
-const SignIn = () => {
+const SignIn = (props) => {
   const navigate = useNavigate()
   const LOCAL_STORAGE_KEY = 'Users'
   const EmailRegex = /^[a-zA-Z0-9]+@[a-zA-Z]+[.a-zA-Z]+$/
@@ -97,7 +98,7 @@ const SignIn = () => {
         }).then((res) => {
           console.log(res.data)
         })
-
+        props.adduser(user)
         navigate('/Main')
         //console.log(state)
         //setUsers([...users, { id: uuid(), ...user }])
@@ -134,9 +135,9 @@ const SignIn = () => {
         height='150'
         className='center'
       />
-      <MyContext.Provider value={{ user }}>
-        <Header />
-      </MyContext.Provider>
+      {/* <MyContext.Provider value={{ user }}>
+        <Header />*/}
+
       <Box
         className='center'
         sx={{
