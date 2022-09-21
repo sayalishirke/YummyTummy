@@ -1,8 +1,17 @@
 import React, { useContext } from 'react'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom'
-
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@mui/material'
 import './App.css'
+import { Container } from '@mui/system'
 
 import { Link } from 'react-router-dom'
 
@@ -19,21 +28,21 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
+
 //import * as fs from 'fs'
 const Main = () => {
   const navigate = useNavigate()
   const [product, setProduct] = useState([])
-  const [fetch, setFetch] = useState(false)
+  const [fetch, setFetch] = useState(true)
   const [clicked, setClicked] = useState(false)
 
   //const { user } = useContext(MyContext)
-  const fetchList = () => {
+  useEffect(() => {
     Axios.get('http://localhost:3004/details').then((res) => {
       setProduct(res.data)
     })
     setFetch(true)
-    // console.log(product)
-  }
+  }, [])
 
   const clickHandle = () => {
     setClicked(true)
@@ -84,26 +93,52 @@ const Main = () => {
         height='150'
         className='center'
       />
-
+      <p></p>
       {/*<h2>Welcome {location.item.name}</h2>
-      <h2>welcome, {user.username}</h2>*/}
+      <h2>welcome, {user.username}</h2>
+      <Button onClick={fetchList}>Display List</Button>*/}
 
-      <Button onClick={fetchList}>Display List</Button>
-      <List>
-        {fetch ? (
-          product.map((option, index) => (
-            <ListItem key={option.id} value={option.name}>
-              {option.name}
-              <Button onClick={clickHandle}>
-                <InfoIcon />
-              </Button>
-              {clicked && <div>{option.contact}</div>}
-            </ListItem>
-          ))
-        ) : (
-          <>list not found</>
-        )}
-      </List>
+      <div>
+        <Container
+          fixed
+          sx={{
+            marginTop: 9,
+          }}
+        >
+          <TableContainer component={Paper}>
+            <Table
+              sx={{ minWidth: 650 }}
+              size='small'
+              aria-label='a dense table'
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell align='right'>Contact</TableCell>
+                  <TableCell align='right'>Cuisine</TableCell>
+                  <TableCell align='right'>Category</TableCell>
+                  <TableCell align='right'>Dish</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {product.map((option, index) => (
+                  <TableRow
+                    key={index}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell>{option.name}</TableCell>
+                    <TableCell align='right'>{option.contact}</TableCell>
+                    <TableCell align='right'>{option.cuisine}</TableCell>
+                    <TableCell align='right'>{option.category}</TableCell>
+                    <TableCell align='right'>{option.menu}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <p></p>
+        </Container>
+      </div>
       <Stack direction='row' className='center' spacing={2}>
         <Button
           variant='contained'

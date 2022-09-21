@@ -13,6 +13,7 @@ import React, { useState, useEffect } from 'react'
 import Button from '@mui/material/Button'
 import { FormGroup } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import { Container } from '@mui/system'
 import Autocomplete from '@mui/material/Autocomplete'
 import Header from './Header'
 import { v4 as uuid } from 'uuid'
@@ -63,7 +64,7 @@ const AddNew = (props) => {
     category: 'None',
     menu: '',
   })
-  
+
   const [vchecked, setVChecked] = useState(false)
   const [nvchecked, setNVChecked] = useState(false)
   const checkboxHandle1 = (event) => {
@@ -106,11 +107,6 @@ const AddNew = (props) => {
     setVChecked(false)
 
     console.log(details)
-    {
-      /*
-      props.newitem = { details }
-  */
-    }
 
     Axios.post('http://localhost:3004/details', {
       id: details.id,
@@ -124,7 +120,6 @@ const AddNew = (props) => {
     })
 
     navigate('/Main')
-    //navigate('/Main', { item: { details } })
   }
 
   return (
@@ -136,120 +131,126 @@ const AddNew = (props) => {
         height='150'
         className='center'
       />
-
-      <Box
-        className='center'
+      <Container
+        fixed
         sx={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          '& > :not(style)': {
-            m: 1,
-            width: 500,
-            height: 1000,
-          },
+          marginTop: 9,
         }}
       >
-        <form onSubmit={submitHandler}>
-          <Stack
-            direction='column'
-            justifyContent='center'
-            alignItems='stretch'
-            spacing={2}
-          >
-            <TextField
-              required
-              id='outlined-required'
-              label='Name'
-              name='name'
-              value={details.name}
-              onChange={handleInputChange}
-            />
-            <FormHelperText>Required</FormHelperText>
-            <TextField
-              id='outlined-number'
-              label='Contact Number'
-              type='number'
-              InputLabelProps={{
-                shrink: true,
-              }}
-              name='contact'
-              value={details.contact}
-              onChange={handleInputChange}
-            />
-            <FormHelperText>Required</FormHelperText>
-            <FormControl required sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id='demo-simple-select-required-label'>
-                Cuisine
-              </InputLabel>
-              <Select
-                labelId='demo-simple-select-required-label'
-                id='demo-simple-select-required'
-                value={details.cuisine}
-                label='Cuisine *'
-                onChange={selectionHandler}
-              >
-                <MenuItem value={'Indian'}>Indian</MenuItem>
-                <MenuItem value={'Chinese'}>Chinese</MenuItem>
-                <MenuItem value={'Italian'}>Italian</MenuItem>
-              </Select>
-              <FormHelperText>Select a cuisine</FormHelperText>
-            </FormControl>
-
-            <Stack direction='row' className='center' spacing={2}>
-              <FormGroup disabled={details.cuisine}>
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      onChange={checkboxHandle1}
-                      disabled={!details.cuisine}
-                    />
-                  }
-                  label='Veg'
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      onChange={checkboxHandle2}
-                      disabled={!details.cuisine}
-                    />
-                  }
-                  label='Non Veg'
-                />
-              </FormGroup>
-            </Stack>
-
-            <FormControl
-              sx={{ m: 1, minWidth: 120 }}
-              disabled={!vchecked && !nvchecked}
+        <Box
+          className='center'
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            '& > :not(style)': {
+              m: 1,
+              width: 500,
+              height: 500,
+            },
+          }}
+        >
+          <form onSubmit={submitHandler}>
+            <Stack
+              direction='column'
+              justifyContent='center'
+              alignItems='stretch'
+              spacing={2}
             >
-              <InputLabel id='demo-simple-select-required-label'>
-                Menu
-              </InputLabel>
-              <Select
-                labelId='demo-simple-select-required-label'
-                id='demo-simple-select-required'
-                value={details.menu}
-                label='Menu *'
-                name='menu'
+              <TextField
+                required
+                id='outlined-required'
+                label='Name'
+                name='name'
+                value={details.name}
                 onChange={handleInputChange}
-              >
-                {dict[details.category][details.cuisine].map(
-                  (option, index) => (
-                    <MenuItem key={index} value={option}>
-                      {option}
-                    </MenuItem>
-                  )
-                )}
-              </Select>
-
+              />
               <FormHelperText>Required</FormHelperText>
-            </FormControl>
-            <Button variant='contained' color='success' type='submit'>
-              Submit
-            </Button>
-          </Stack>
-        </form>
-      </Box>
+              <TextField
+                id='outlined-number'
+                label='Contact Number'
+                type='number'
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                name='contact'
+                value={details.contact}
+                onChange={handleInputChange}
+              />
+              <FormHelperText>Required</FormHelperText>
+              <FormControl required sx={{ m: 1, minWidth: 120 }}>
+                <InputLabel id='demo-simple-select-required-label'>
+                  Cuisine
+                </InputLabel>
+                <Select
+                  labelId='demo-simple-select-required-label'
+                  id='demo-simple-select-required'
+                  value={details.cuisine}
+                  label='Cuisine *'
+                  onChange={selectionHandler}
+                >
+                  <MenuItem value={'Indian'}>Indian</MenuItem>
+                  <MenuItem value={'Chinese'}>Chinese</MenuItem>
+                  <MenuItem value={'Italian'}>Italian</MenuItem>
+                </Select>
+                <FormHelperText>Select a cuisine</FormHelperText>
+              </FormControl>
+
+              <Stack direction='row' className='center' spacing={2}>
+                <FormGroup disabled={details.cuisine}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={checkboxHandle1}
+                        disabled={!details.cuisine}
+                      />
+                    }
+                    label='Veg'
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        onChange={checkboxHandle2}
+                        disabled={!details.cuisine}
+                      />
+                    }
+                    label='Non Veg'
+                  />
+                </FormGroup>
+              </Stack>
+
+              <FormControl
+                sx={{ m: 1, minWidth: 120 }}
+                disabled={!vchecked && !nvchecked}
+              >
+                <InputLabel id='demo-simple-select-required-label'>
+                  Menu
+                </InputLabel>
+                <Select
+                  labelId='demo-simple-select-required-label'
+                  id='demo-simple-select-required'
+                  value={details.menu}
+                  label='Menu *'
+                  name='menu'
+                  onChange={handleInputChange}
+                >
+                  {dict[details.category][details.cuisine].map(
+                    (option, index) => (
+                      <MenuItem key={index} value={option}>
+                        {option}
+                      </MenuItem>
+                    )
+                  )}
+                </Select>
+
+                <FormHelperText>Required</FormHelperText>
+              </FormControl>
+              <Button variant='contained' color='success' type='submit'>
+                Submit
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+      </Container>
     </>
   )
 }
