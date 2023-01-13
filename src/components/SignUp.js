@@ -4,11 +4,11 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
-import Header from './Header'
+
 //import SignUp from './SignUp'
 import { useNavigate } from 'react-router-dom'
 
-const SignUp = (props) => {
+const SignUp = () => {
   const navigate = useNavigate()
   const EmailRegex = /^[a-zA-Z0-9]+@[a-zA-Z]+[.a-zA-Z]+$/
   const PwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,}$/
@@ -25,7 +25,7 @@ const SignUp = (props) => {
     CPError: '',
   })
   const handleEmailInputChange = (event) => {
-    event.persist()
+    // event.persist()
     setNUser((Nuser) => ({
       ...Nuser,
       email: event.target.value,

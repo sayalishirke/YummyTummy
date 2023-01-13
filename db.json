@@ -1,19 +1,112 @@
 {
-  "posts": [
+  "users": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "id": 2,
+      "username": "None",
+      "email": "None",
+      "password": "None"
+    },
+    {
+      "id": "d3a7f391-fb24-42e0-9eea-c73d456b1e59",
+      "username": "sayali",
+      "email": "sayalishirke27@gmail.com ",
+      "password": "Sayali@2000"
+    },
+    {
+      "id": "e0db3b0a-7056-4273-953b-f784dd4f2f80",
+      "username": "sayali",
+      "email": "sayalishirke27@gmail.com ",
+      "password": "Sayali@2000"
+    },
+    {
+      "id": "43a5af2f-263b-4b7e-999e-a6160b4e87ac",
+      "username": "Sayali",
+      "email": "sayali@gmail.com",
+      "password": "Sayali@2000"
+    },
+    {
+      "id": "72e69369-11d9-47bd-87cc-c0a18f44c4c9",
+      "username": "sam",
+      "email": "sam@gmail.com",
+      "password": "Sam@2000Sam"
+    },
+    {
+      "id": "44a8c6e3-bc3f-408b-b9cf-93fb923c3d44",
+      "username": "sam",
+      "email": "sayalishirke27@gmail.com ",
+      "password": "SAmsam@2000"
+    },
+    {
+      "id": "c758231e-5bc0-4ae9-a135-ca53e85f09f6",
+      "username": "sdxfcgvhb",
+      "email": "xcv@gmail.com",
+      "password": "Sayali@3456"
+    },
+    {
+      "id": "8b58500f-a760-45ab-89d9-7c5066ad2343",
+      "username": "sayali",
+      "email": "sayalishirke27@gmail.com ",
+      "password": "Sayali@2000"
+    },
+    {
+      "id": "8678b82e-dd45-4880-87c7-cba0e130c577",
+      "username": "xcv b",
+      "email": "xcvbn@gmail.com",
+      "password": "zxcS@4567"
+    },
+    {
+      "id": "306087a8-3916-4d32-9b33-a9449106b944",
+      "username": "Sayali",
+      "email": "sayalishirke27@gmail.com",
+      "password": "Sayali@2000"
+    },
+    {
+      "id": "290e3b0f-29aa-427e-a758-ec984d7c672e",
+      "username": "Sayali",
+      "email": "sayali@gmail.com",
+      "password": "Sayali@2000"
     }
   ],
-  "comments": [
+  "details": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "name": "None",
+      "contact": "000",
+      "cuisine": "None",
+      "category": "None",
+      "menu": "None"
+    },
+    {
+      "id": "120a37ee-e786-48e1-9ddf-a23edeec86f2",
+      "name": "sayali",
+      "contact": "7738328276",
+      "cuisine": "Chinese",
+      "category": "nonveg",
+      "menu": "Egg And Garlic Fried Rice"
+    },
+    {
+      "id": "89837a23-e73e-4655-a619-b1557441b250",
+      "name": "sayali",
+      "contact": "745128451",
+      "cuisine": "Chinese",
+      "category": "nonveg",
+      "menu": "Chicken Lollipops"
+    },
+    {
+      "id": "d2fdb9e6-b9ad-4198-a448-f9a44f37cba6",
+      "name": "sayali",
+      "contact": "4512562385",
+      "cuisine": "Chinese",
+      "category": "nonveg",
+      "menu": "Chicken Lollipops"
+    },
+    {
+      "id": "e0b13f09-59dc-4fa8-8656-da5722653a3d",
+      "name": "xcvb",
+      "contact": "8564132",
+      "cuisine": "Italian",
+      "category": "nonveg",
+      "menu": "Penne Arrabiata Chicken"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

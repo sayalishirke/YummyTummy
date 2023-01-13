@@ -1,23 +1,21 @@
 import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Stack from '@mui/material/Stack'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import FormHelperText from '@mui/material/FormHelperText'
 import MenuItem from '@mui/material/MenuItem'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button'
 import { FormGroup } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import { Container } from '@mui/system'
-import Autocomplete from '@mui/material/Autocomplete'
-import Header from './Header'
+
 import { v4 as uuid } from 'uuid'
-import Main from './Main'
+
 import Axios from 'axios'
 
 const AddNew = (props) => {
@@ -116,7 +114,7 @@ const AddNew = (props) => {
       category: details.category,
       menu: details.menu,
     }).then((res) => {
-      console.log(res.data)
+      //console.log(res.data)
     })
 
     navigate('/Main')

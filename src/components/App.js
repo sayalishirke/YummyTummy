@@ -1,15 +1,15 @@
-import './App.css'
-
+import React from 'react'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Header from './Header.js'
 import SignIn from './SignIn.js'
 import SignUp from './SignUp.js'
 import Main from './Main.js'
 import AddNew from './AddNew'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useState } from 'react'
 import MyContext from './UserContext'
-function App() {
-  const [user, setUser] = useState({})
+import './App.css'
+function App() {  
+  const [user, setUser] = useState({username: 'New_user'})
 
   const addUserhandle = (user) => {
     setUser(user)

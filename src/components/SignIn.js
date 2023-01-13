@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react'
+import React, { useState, useEffect} from 'react'
 import './App.css'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
@@ -7,10 +7,9 @@ import Button from '@mui/material/Button'
 //import SignUp from './SignUp'
 import { useNavigate } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
-import MyContext from './UserContext'
-import Header from './Header.js'
+
 import Axios from 'axios'
-import Main from './Main.js'
+
 
 const SignIn = (props) => {
   const navigate = useNavigate()
@@ -33,6 +32,7 @@ const SignIn = (props) => {
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(users))
   }, [users])
+
   const handleUsernameInputChange = (event) => {
     setUser((user) => ({
       ...user,
@@ -89,14 +89,14 @@ const SignIn = (props) => {
       if (user.email && user.password) {
         // setValid(true)
         //setSubmitted(true)
-
+        //json-server --watch db.json --port 3004
         Axios.post('http://localhost:3004/users', {
           id: user.id,
           username: user.username,
           email: user.email,
           password: user.password,
         }).then((res) => {
-          console.log(res.data)
+          //console.log(res.data)
         })
         props.adduser(user)
         navigate('/Main')
@@ -111,8 +111,8 @@ const SignIn = (props) => {
     if (submitted) {
       navigate('/Main')
     }*/
-    console.log(user)
-    console.log(error)
+    //console.log(user)
+    //console.log(error)
 
     /*
     console.log(submitted)

@@ -7,7 +7,7 @@ const Header = () => {
 
   return (
     <>
-      <h2>welcome, {user.username}</h2>
+      <h2>Welcome, {user.username}</h2>
     </>
   )
 }
